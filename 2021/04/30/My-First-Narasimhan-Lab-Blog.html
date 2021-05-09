@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      2 min read
     
 </span></p>
 
@@ -139,7 +139,17 @@ window.onload = wrap_img;
 <li>/corral-repl/utexas/UKB-Imaging-Genetics/DXA_Images</li>
 </ul>
 <p>This folder has all patient EID zip files with their images.</p>
-<h5 id="I-still-have-yet-to-download-my-own-UK-Biobank-Data-which-is-near-the-top-of-my-to-do-list.">I still have yet to download my own UK Biobank Data which is near the top of my to do list.<a class="anchor-link" href="#I-still-have-yet-to-download-my-own-UK-Biobank-Data-which-is-near-the-top-of-my-to-do-list."> </a></h5><h3 id="Navigating-The-Linux-Terminal">Navigating The Linux Terminal<a class="anchor-link" href="#Navigating-The-Linux-Terminal"> </a></h3><p>My first issues arose after ssh-ing into TACC as the TACC UI is a Linux command line terminal. The most useful commands I learned were as follows:</p>
+<ul>
+<li>/corral-repl/utexas/UKB-Imaging-Genetics/unzipped_DXA_Images</li>
+</ul>
+<p>This folder has all patient EID files unzipped with their images</p>
+<h5 id="I-still-have-yet-to-download-my-own-UK-Biobank-Data-which-is-near-the-top-of-my-to-do-list.">I still have yet to download my own UK Biobank Data which is near the top of my to do list.<a class="anchor-link" href="#I-still-have-yet-to-download-my-own-UK-Biobank-Data-which-is-near-the-top-of-my-to-do-list."> </a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Navigating-The-Linux-Terminal">Navigating The Linux Terminal<a class="anchor-link" href="#Navigating-The-Linux-Terminal"> </a></h3><p>My first issues arose after ssh-ing into TACC as the TACC UI is a Linux command line terminal. The most useful commands I learned were as follows:</p>
 <ul>
 <li>cd /directory - Enters the directory specified</li>
 <li>cd .. - Navigates back a directory</li>
@@ -153,23 +163,51 @@ window.onload = wrap_img;
 </ul>
 </li>
 </ul>
-<h3 id="Writing-My-First-Bash-Scripts">Writing My First Bash Scripts<a class="anchor-link" href="#Writing-My-First-Bash-Scripts"> </a></h3><p>The DXA Images were all stored in .zip files with the following syntax: PatientEID_DataField_2_0.zip (ex: 1003186_20158_2_0.zip).</p>
-<p>I first had to write a bash script to unzip the files.</p>
-<h4 id="unzip.sh">unzip.sh<a class="anchor-link" href="#unzip.sh"> </a></h4><h1 id="!/bin/bash">!/bin/bash<a class="anchor-link" href="#!/bin/bash"> </a></h1><p>echo "This unzips all the files in the directory and puts the unzipped files into directories named after the original zip folder"</p>
-<p>for f in *.zip; do</p>
-
-<pre><code>    unzip -d "${f%.zip}_unzip" "$f"
-
-</code></pre>
-<p>done</p>
-<p>I then had to rename</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="FastAI-Progress-and-Notes">FastAI Progress and Notes<a class="anchor-link" href="#FastAI-Progress-and-Notes"> </a></h2>
+<h3 id="Writing-My-First-Bash-Scripts">Writing My First Bash Scripts<a class="anchor-link" href="#Writing-My-First-Bash-Scripts"> </a></h3><p>The DXA Images were all stored in .zip files with the following syntax: PatientEID_DataField_2_0.zip (ex: 1003186_20158_2_0.zip)</p>
+<p>I first had to write a bash script to unzip the files and rename the folders containing the images to retain the patient EID. (ex: 1003186_20158_2_0_unzip)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#echo &quot;This unzips all the files in the directory and puts the unzipped files into directories named after the original zip folder&quot;</span>
+
+<span class="c1">#for f in *.zip; do</span>
+<span class="c1">#    unzip -d &quot;${f%.zip}_unzip&quot; &quot;$f&quot;    </span>
+<span class="c1">#done</span>
+
+<span class="c1"># To unzip the files and put them into a new directory outside of the current directory while renaming them:</span>
+
+<span class="c1">#for f in *.zip; do</span>
+<span class="c1">#    unzip -d &quot;/corral-repl/utexas/UKB-Imaging-Genetics/unzipped_DXA_Images/${f%.zip}_unzip&quot; &quot;$f&quot;       </span>
+<span class="c1">#done</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="FastAI-Progress-and-Notes">FastAI Progress and Notes<a class="anchor-link" href="#FastAI-Progress-and-Notes"> </a></h2><p>I have been learning ML through use of the FastAI library, which is built upon PyTorch. Here I will define the basics of machine learning as used in a binary classification model as per the fastbook lesson 1. Programming generally involves a flow chart of inputs -&gt; program -&gt; results in order to solve a problem. Machine learning involves teaching the computer to solves the problems itself by adding a few things to the work flow. By adding "weights" (or parameters) to the program (or model), one can adjust the results of the model even with the same inputs. According to fastai, "weights are just variables, and a weight assignment is a particular choice of values for those variables."</p>
+
 </div>
 </div>
 </div>
